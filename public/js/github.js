@@ -25,9 +25,38 @@ export async function renderGitHub() {
         calendar.totalContributions.toLocaleString();
       const grid = document.createElement("div");
       grid.className = "heatmap";
-      for (const week of calendar.weeks) {
+      const months = document.createElement("div");
+      months.className = "heatmap-months";
+      months.setAttribute("aria-hidden", "true");
+      let previousMonth = null;
+      const earlyWeek = calendar.weeks[2] || calendar.weeks[0];
+      const earlyMonth = new Date(
+        `${earlyWeek.contributionDays[0].date}T00:00:00Z`,
+      ).getUTCMonth();
+      for (const [weekIndex, week] of calendar.weeks.entries()) {
         const column = document.createElement("div");
         column.className = "heatmap-week";
+        const firstDate = new Date(
+          `${week.contributionDays[0].date}T00:00:00Z`,
+        );
+        const month = firstDate.getUTCMonth();
+        const monthLabel = document.createElement("span");
+        if (
+          month !== previousMonth &&
+          !(weekIndex === 0 && month !== earlyMonth)
+        ) {
+          monthLabel.textContent = firstDate.toLocaleDateString("en", {
+            month: "short",
+            timeZone: "UTC",
+          });
+        }
+        previousMonth = month;
+        months.append(monthLabel);
+        for (let index = 0; index < firstDate.getUTCDay(); index++) {
+          const blank = document.createElement("span");
+          blank.className = "heatmap-blank";
+          column.append(blank);
+        }
         for (const day of week.contributionDays) {
           const square = document.createElement("span");
           square.className = "heatmap-day";
@@ -40,14 +69,14 @@ export async function renderGitHub() {
       const summary = document.createElement("p");
       summary.className = "sr-only";
       summary.textContent = `${calendar.totalContributions} contributions over the past year. The calendar shows daily contribution counts.`;
-      chart.append(summary, grid);
+      chart.append(summary, months, grid);
       grid.setAttribute("aria-hidden", "true");
     } else {
       chart.innerHTML =
         '<p class="data-note">Contribution history is currently unavailable. <a href="https://github.com/itay123458">View it on GitHub.</a></p>';
     }
     document.querySelector("#github-updated").textContent =
-      `Updated ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(data.updatedAt))}`;
+      `Updated ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(data.contributionsUpdatedAt || data.updatedAt))}`;
     const total = data.languages.reduce(
       (sum, language) => sum + language.bytes,
       0,
@@ -74,9 +103,16 @@ export async function renderGitHub() {
       document.querySelector("#language-note").textContent =
         "No language data available yet.";
   } catch {
+    for (const id of ["#stat-repos", "#stat-stars", "#stat-contributions"]) {
+      document.querySelector(id).textContent = "—";
+    }
+    document.querySelector("#language-bar").replaceChildren();
+    document.querySelector("#language-list").replaceChildren();
     document.querySelector("#contribution-chart").innerHTML =
       '<p class="data-note">GitHub activity is temporarily unavailable. <a href="https://github.com/itay123458">View my GitHub profile.</a></p>';
     document.querySelector("#language-note").textContent =
       "Language data is temporarily unavailable.";
+  } finally {
+    document.querySelector(".github-panel").setAttribute("aria-busy", "false");
   }
 }

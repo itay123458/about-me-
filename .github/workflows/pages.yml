@@ -23,10 +23,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Restore last GitHub snapshot
+        uses: actions/cache/restore@v4
+        with:
+          path: public/data/github.json
+          key: github-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: github-snapshot-
       - name: Refresh public GitHub data
         run: node scripts/update-github.js
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Save GitHub snapshot
+        uses: actions/cache/save@v4
+        with:
+          path: public/data/github.json
+          key: github-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

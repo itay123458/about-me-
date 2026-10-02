@@ -12,14 +12,24 @@
   --surface-hover: #1e2028;
   --border: #2d2f39;
   --text: #efeff5;
-  --muted: #a5a6b5;
-  --faint: #828594;
   --purple: #bba7fa;
   --blue: #93b9fc;
   --green: #67d6a0;
   --yellow: #edc367;
   --red: #f17b85;
   --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --muted: #b0b2c2;
+  --faint: #9295a7;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --duration: 200ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 * {
   box-sizing: border-box;
@@ -120,6 +130,7 @@ svg {
   gap: 24px;
 }
 .wordmark {
+  min-height: 44px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -155,6 +166,7 @@ svg {
   color: var(--muted);
 }
 .site-header nav a {
+  position: relative;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -172,12 +184,13 @@ svg {
   height: 14px;
 }
 .hero {
+  animation: hero-enter 280ms var(--ease) both;
   display: grid;
   grid-template-columns: 1fr 272px;
   align-items: center;
   gap: 48px;
-  padding: 68px 0 64px;
   border-bottom: 1px solid var(--border);
+  padding: 64px 0 60px;
 }
 .eyebrow {
   font-family: var(--mono);
@@ -196,10 +209,11 @@ svg {
   background: var(--purple);
 }
 h1 {
-  font-size: clamp(48px, 6.7vw, 82px);
-  font-weight: 650;
-  letter-spacing: -0.065em;
   line-height: 1.12;
+  font-family: Pixel, var(--mono);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  font-size: clamp(54px, 6.7vw, 86px);
 }
 h1 > span:first-child {
   color: var(--purple);
@@ -208,11 +222,11 @@ h1 > span:first-child {
   color: var(--blue);
 }
 .hero-intro {
-  color: #bcbecb;
   font-size: 21px;
   line-height: 1.5;
-  margin-top: 22px;
   letter-spacing: -0.025em;
+  margin-top: 24px;
+  color: #c2c4d2;
 }
 .wave {
   font-size: 19px;
@@ -221,9 +235,9 @@ h1 > span:first-child {
 }
 .hero-actions {
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 32px;
+  gap: var(--space-3);
 }
 .button {
   min-height: 44px;
@@ -272,12 +286,16 @@ h1 > span:first-child {
   border-radius: 14px;
   transform: rotate(3deg);
   background: #18191f;
+  border-color: #4a405e;
+  transition:
+    border-color var(--duration),
+    box-shadow var(--duration);
 }
 .portrait-frame img {
   border-radius: 8px;
-  width: 176px;
-  height: 176px;
   transform: rotate(-3deg);
+  width: 192px;
+  height: 192px;
 }
 .portrait-corner {
   font-family: var(--mono);
@@ -294,9 +312,9 @@ h1 > span:first-child {
 }
 .portrait-handle {
   font-family: var(--mono);
-  font-size: 12px;
-  color: #b0a6c9;
-  margin-top: 22px;
+  font-size: 13px;
+  margin-top: 0;
+  color: #c0b2db;
 }
 .presence-label {
   display: flex;
@@ -306,7 +324,8 @@ h1 > span:first-child {
   color: var(--muted);
 }
 .hero-portrait .presence-label {
-  margin-top: 5px;
+  font-size: 12px;
+  margin-top: 6px;
 }
 .status-dot {
   display: inline-block;
@@ -335,19 +354,19 @@ h1 > span:first-child {
   padding-top: 46px;
 }
 .section {
-  margin-bottom: 46px;
   scroll-margin-top: 32px;
+  margin-bottom: var(--space-6);
 }
 .section-heading {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 .section-index {
   font-family: var(--mono);
-  font-size: 11px;
   color: var(--purple);
+  font-size: 12px;
 }
 h2 {
   font-size: 19px;
@@ -363,8 +382,8 @@ h2 {
 }
 .section-count {
   font-family: var(--mono);
-  font-size: 11px;
   color: var(--faint);
+  font-size: 11px;
 }
 .section-link {
   display: flex;
@@ -389,60 +408,61 @@ h2 {
 .interests {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px 16px;
   margin-top: 24px;
-  font-size: 13px;
   color: #c6c8d3;
+  gap: var(--space-4) var(--space-5);
+  font-size: 14px;
 }
 .interests li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .interests svg {
-  width: 17px;
-  height: 17px;
   color: var(--purple);
+  width: 18px;
+  height: 18px;
 }
 .interests li:nth-child(even) svg {
   color: var(--blue);
 }
 .stack-row {
   border-top: 1px solid var(--border);
-  margin-top: 28px;
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  margin-top: var(--space-5);
+  padding-top: 20px;
+  gap: var(--space-3);
 }
 .mono-label {
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.09em;
   color: var(--faint);
   font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.07em;
 }
 .tech-stack {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: var(--space-2);
 }
 .tech-stack li {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
   color: #cacbd5;
   background: #191a20;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  font-size: 12px;
   padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  min-height: 32px;
 }
 .tech-mark {
   font-family: var(--mono);
-  font-size: 10px;
-  line-height: 17px;
   font-weight: 600;
+  font-size: 11px;
+  line-height: 18px;
 }
 .js-mark {
   color: #e9cd7a;
@@ -456,21 +476,24 @@ h2 {
 .project-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .project-card {
   border: 1px solid var(--border);
   background: var(--surface);
-  border-radius: 6px;
-  padding: 20px;
   position: relative;
+  padding: 20px;
+  border-radius: var(--radius-md);
   transition:
-    border-color 0.18s,
-    background 0.18s;
+    transform var(--duration) var(--ease),
+    border-color var(--duration),
+    box-shadow var(--duration),
+    background var(--duration);
 }
 .project-card:has(a:hover) {
-  border-color: #5a4f78;
+  border-color: #65547e;
   background: #1d1d26;
+  box-shadow: 0 5px 14px #00000020;
 }
 .project-top {
   display: flex;
@@ -479,15 +502,15 @@ h2 {
   margin-bottom: 12px;
 }
 .project-icon {
-  width: 34px;
-  height: 34px;
   border: 1px solid #3c344e;
   background: #282231;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--purple);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
 }
 .project-card:nth-child(2) .project-icon {
   color: var(--blue);
@@ -504,27 +527,28 @@ h2 {
   height: 18px;
 }
 .project-title {
-  font-size: 16px;
-  font-weight: 550;
   letter-spacing: -0.025em;
+  font-size: 17px;
+  font-weight: 600;
 }
 .project-category {
   color: var(--faint);
-  font-size: 11px;
+  font-size: 12px;
 }
 .project-status {
   font-family: var(--mono);
-  font-size: 9px;
   letter-spacing: 0.02em;
   color: #9adcbb;
   border: 1px solid #31483d;
   background: #202b25;
-  border-radius: 3px;
-  padding: 2px 6px;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   margin-left: auto;
+  font-size: 10px;
+  padding: 3px 7px;
+  line-height: 1.5;
+  border-radius: var(--radius-sm);
 }
 .project-status::before {
   content: "";
@@ -539,10 +563,10 @@ h2 {
   border-color: #413650;
 }
 .project-description {
-  font-size: 13px;
-  line-height: 1.65;
   color: var(--muted);
-  max-width: 50ch;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 58ch;
 }
 .project-bottom {
   display: flex;
@@ -554,17 +578,19 @@ h2 {
 }
 .project-tech {
   display: flex;
-  gap: 12px;
   font-family: var(--mono);
-  font-size: 10px;
   color: var(--faint);
+  font-size: 11px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 .project-link {
-  font-size: 11px;
   color: #c1b4e9;
   display: flex;
   align-items: center;
   gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
   min-height: 44px;
 }
 .project-link svg {
@@ -575,20 +601,20 @@ h2 {
   color: #e3d9ff;
 }
 .project-unlinked {
-  font-size: 11px;
   color: var(--faint);
+  font-size: 12px;
 }
 .github-panel {
   border: 1px solid var(--border);
   background: var(--surface);
-  border-radius: 6px;
-  padding: 22px;
+  border-radius: var(--radius-md);
+  padding: 24px;
 }
 .github-stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1.4fr;
-  gap: 16px;
-  margin: 0 0 26px;
+  gap: var(--space-4);
+  margin: 0 0 28px;
 }
 .github-stats > div {
   display: flex;
@@ -600,19 +626,19 @@ h2 {
   padding-left: 20px;
 }
 dt {
-  font-size: 11px;
   color: var(--muted);
+  font-size: 12px;
 }
 dd {
   margin: 0;
   font-family: var(--mono);
-  font-size: 28px;
   line-height: 1.4;
   letter-spacing: -0.06em;
-  color: #e0d8f8;
+  font-size: 30px;
+  color: #e7defb;
 }
 h3 {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .activity-heading {
@@ -623,7 +649,7 @@ h3 {
   margin-bottom: 12px;
 }
 .activity-heading .mono-label {
-  font-size: 8px;
+  font-size: 10px;
 }
 .contribution-scroll {
   overflow-x: auto;
@@ -631,12 +657,12 @@ h3 {
   scrollbar-color: #3b354b transparent;
 }
 .contribution-chart {
-  min-height: 83px;
+  min-height: 105px;
 }
 .heatmap {
   display: flex;
-  gap: 3px;
   width: max-content;
+  gap: 3px;
 }
 .heatmap-week {
   display: flex;
@@ -646,35 +672,35 @@ h3 {
 .heatmap-day,
 .heatmap-legend i {
   display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 1px;
-  background: #2b2d38;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #343643;
 }
 .heatmap-day[data-level="1"],
 .heatmap-legend i[data-level="1"] {
-  background: #48405f;
+  background: #55476f;
 }
 .heatmap-day[data-level="2"],
 .heatmap-legend i[data-level="2"] {
-  background: #66568e;
+  background: #7860a3;
 }
 .heatmap-day[data-level="3"],
 .heatmap-legend i[data-level="3"] {
-  background: #8c72c4;
+  background: #a180db;
 }
 .heatmap-day[data-level="4"],
 .heatmap-legend i[data-level="4"] {
-  background: #bba0f1;
+  background: #c8aaff;
 }
 .activity-key {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   color: var(--faint);
-  font-size: 9px;
-  margin-top: 10px;
   flex-wrap: wrap;
+  font-size: 11px;
+  margin-top: 12px;
 }
 .heatmap-legend {
   display: flex;
@@ -687,13 +713,13 @@ h3 {
   margin-top: 22px;
 }
 .language-bar {
-  height: 5px;
   width: 100%;
   display: flex;
   gap: 2px;
   border-radius: 2px;
   overflow: hidden;
-  margin: 12px 0;
+  height: 7px;
+  margin: 14px 0;
 }
 .language-bar span {
   height: 100%;
@@ -702,9 +728,9 @@ h3 {
 .language-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
-  font-size: 10px;
   color: var(--muted);
+  font-size: 12px;
+  gap: 10px 18px;
 }
 .language-list li {
   display: flex;
@@ -712,23 +738,24 @@ h3 {
   gap: 5px;
 }
 .language-dot {
-  width: 6px;
-  height: 6px;
   border-radius: 50%;
   display: block;
+  width: 7px;
+  height: 7px;
 }
 .language-percent {
   font-family: var(--mono);
-  color: var(--faint);
-  font-size: 9px;
+  font-size: 11px;
+  color: #b4b5c4;
 }
 .data-note {
-  font-size: 11px;
   color: var(--faint);
+  font-size: 12px;
+  line-height: 1.6;
 }
 .languages .data-note {
-  font-size: 9px;
-  margin-top: 10px;
+  font-size: 11px;
+  margin-top: 12px;
 }
 .side-column {
   min-width: 0;
@@ -738,12 +765,13 @@ h3 {
 }
 .discord-card {
   border: 1px solid var(--border);
-  border-radius: 7px;
   background: var(--surface);
   overflow: hidden;
+  border-radius: var(--radius-md);
+  border-color: #3b3548;
+  box-shadow: 0 6px 20px #00000018;
 }
 .discord-banner {
-  height: 96px;
   background: #272332;
   position: relative;
   padding: 18px;
@@ -751,11 +779,12 @@ h3 {
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #383142;
+  height: 104px;
 }
 .discord-banner .mono-label {
-  font-size: 9px;
-  color: #b1a3ce;
   letter-spacing: 0.08em;
+  font-size: 11px;
+  color: #c7b9e5;
 }
 .discord-banner svg {
   color: #ab9aca;
@@ -766,28 +795,28 @@ h3 {
   position: absolute;
   bottom: 16px;
   right: 18px;
-  color: #7d6e99;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
+  color: #ad9bc9;
 }
 .discord-body {
-  padding: 0 20px 18px;
   position: relative;
+  padding: 0 20px 20px;
 }
 .discord-avatar-wrap {
-  width: 88px;
-  height: 88px;
-  margin-top: -40px;
-  margin-bottom: 12px;
   padding: 5px;
   background: var(--surface);
   border-radius: 50%;
   position: relative;
+  width: 96px;
+  height: 96px;
+  margin-top: -44px;
+  margin-bottom: 14px;
 }
 .discord-avatar-wrap img {
-  width: 78px;
-  height: 78px;
   border-radius: 50%;
+  width: 86px;
+  height: 86px;
 }
 .avatar-status {
   position: absolute;
@@ -804,22 +833,22 @@ h3 {
 }
 .discord-username {
   color: var(--muted);
-  font-size: 12px;
-  margin-top: 1px;
+  font-size: 13px;
+  margin-top: 3px;
 }
 .discord-body > .presence-label {
-  margin-top: 12px;
-  font-size: 11px;
+  font-size: 13px;
+  margin-top: 14px;
 }
 .discord-divider {
   border-top: 1px solid var(--border);
-  margin: 18px 0;
+  margin: 20px 0;
 }
 .discord-bio {
-  font-size: 12px;
   color: #b6b8c7;
-  line-height: 1.8;
-  margin-top: 7px;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 10px;
 }
 .discord-button {
   width: 100%;
@@ -827,11 +856,12 @@ h3 {
   background: #34304b;
   border-color: #48405f;
   color: #dfd5fa;
-  font-size: 12px;
   justify-content: flex-start;
   gap: 8px;
-  white-space: nowrap;
   padding: 10px 12px;
+  font-size: 13px;
+  white-space: normal;
+  border-radius: var(--radius-sm);
 }
 .discord-button > span:last-child {
   margin-left: auto;
@@ -841,14 +871,15 @@ h3 {
   border-color: #71618f;
 }
 .discord-connection {
-  font-family: var(--mono);
-  font-size: 8px;
   color: var(--faint);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   margin-top: 14px;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.5;
 }
 .connection-mark {
   width: 5px;
@@ -861,32 +892,32 @@ h3 {
   border-color: var(--green);
 }
 #discord-custom-status {
-  margin-top: 14px;
-  padding-top: 14px;
   border-top: 1px solid var(--border);
-  font-size: 12px;
   color: #d1c5ec;
   overflow-wrap: anywhere;
+  font-size: 14px;
+  padding-top: 16px;
+  margin-top: 16px;
 }
 .discord-activity {
   background: #21232c;
   border: 1px solid #323642;
-  border-radius: 4px;
-  padding: 12px;
   margin-top: 16px;
-  font-size: 12px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  padding: 14px;
 }
 .discord-activity strong {
   display: block;
-  margin-top: 5px;
-  font-size: 12px;
   font-weight: 500;
   color: #d8d8e4;
+  font-size: 14px;
+  margin-top: 8px;
 }
 .discord-activity p {
-  font-size: 11px;
   color: var(--muted);
   overflow-wrap: anywhere;
+  font-size: 13px;
 }
 .side-note {
   display: flex;
@@ -902,8 +933,8 @@ h3 {
   color: #9482ba;
 }
 .side-note p {
-  font-size: 11px;
   line-height: 1.8;
+  font-size: 12px;
 }
 .site-footer {
   display: flex;
@@ -913,14 +944,14 @@ h3 {
   border-top: 1px solid var(--border);
   padding: 24px 0 34px;
   color: var(--faint);
-  font-size: 11px;
+  font-size: 12px;
 }
 .site-footer p span {
   color: #c3b6e6;
 }
 .footer-note {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 11px;
 }
 .site-footer > a {
   display: flex;
@@ -949,10 +980,148 @@ h3 {
   white-space: nowrap;
   border: 0;
 }
+
+@font-face {
+  font-family: Pixel;
+  src: url("./assets/pixelify-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+.portrait-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.portrait-frame:hover {
+  border-color: #8875af;
+  box-shadow: 0 0 18px #ab8dea18;
+}
+.tech-stack svg {
+  width: 14px;
+  height: 14px;
+  color: #b8b9c8;
+}
+.node-mark {
+  color: #91c8a0;
+}
+.css-mark {
+  color: #93b9fc;
+}
+.git-mark {
+  color: #eda28b;
+}
+.project-tech li {
+  padding: 3px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: #b6b7c6;
+}
+.project-card:focus-within {
+  border-color: #8f79ba;
+}
+.project-link:focus-visible {
+  outline-offset: 3px;
+}
+
+.site-header nav a[href^="#"]::after {
+  content: "";
+  height: 2px;
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration) var(--ease);
+}
+.site-header nav a[aria-current],
+.site-header nav a:hover {
+  color: #d7c8ff;
+}
+.site-header nav a[aria-current]::after,
+.site-header nav a:hover::after {
+  transform: scaleX(1);
+}
+.status-dot[data-status="online"] {
+  box-shadow: 0 0 6px #67d6a033;
+}
+.avatar-status[data-status="online"] {
+  animation: status-breathe 4s ease-in-out infinite;
+}
+.heatmap-months {
+  display: grid;
+  grid-auto-columns: 10px;
+  grid-auto-flow: column;
+  column-gap: 3px;
+  width: max-content;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.4;
+}
+.heatmap-months span {
+  overflow: visible;
+  white-space: nowrap;
+}
+.heatmap-day {
+  outline: 1px solid #ffffff05;
+  outline-offset: -1px;
+}
+.heatmap-blank {
+  visibility: hidden;
+  width: 10px;
+  height: 10px;
+}
+.data-note a {
+  color: var(--purple);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes status-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 #67d6a01a;
+  }
+  50% {
+    box-shadow: 0 0 0 3px #67d6a008;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-card:has(a):hover {
+    transform: translateY(-2px);
+    border-color: #65547e;
+    box-shadow: 0 5px 14px #00000020;
+  }
+}
+@media (max-width: 480px) {
+  .portrait-meta {
+    align-items: flex-start;
+    margin-top: 0;
+  }
+  .portrait-corner {
+    display: none;
+  }
+}
+
 @media (min-width: 1440px) {
   .hero {
-    padding-top: 80px;
-    padding-bottom: 76px;
+    padding-top: 64px;
+    padding-bottom: 60px;
   }
 }
 @media (max-width: 1000px) {
@@ -974,8 +1143,8 @@ h3 {
     gap: 8px;
   }
   .button {
-    font-size: 12px;
     padding: 10px 12px;
+    font-size: 13px;
   }
   .github-panel {
     padding: 18px;
@@ -986,19 +1155,7 @@ h3 {
   .interests {
     grid-template-columns: 1fr;
     gap: 12px;
-  }
-  .heatmap {
-    gap: 2px;
-  }
-  .heatmap-week {
-    gap: 2px;
-  }
-  .heatmap-day {
-    width: 7px;
-    height: 7px;
-  }
-  .contribution-chart {
-    min-height: 66px;
+    font-size: 13px;
   }
 }
 @media (max-width: 760px) {
@@ -1052,7 +1209,7 @@ h3 {
     margin: 12px 0;
   }
   .discord-bio {
-    font-size: 12px;
+    font-size: 14px;
   }
   .discord-body > .mono-label {
     display: none;
@@ -1060,10 +1217,11 @@ h3 {
   .discord-button {
     margin-top: 16px;
     max-width: 270px;
+    font-size: 12px;
   }
   .discord-connection {
-    font-size: 8px;
     max-width: 270px;
+    font-size: 11px;
   }
   .side-note {
     display: none;
@@ -1093,56 +1251,43 @@ h3 {
     right: -8px;
   }
   .portrait-handle {
-    font-size: 10px;
-    margin-top: 16px;
+    font-size: 12px;
   }
   .hero-portrait .presence-label {
-    font-size: 9px;
+    font-size: 12px;
   }
   .eyebrow {
-    font-size: 9px;
     letter-spacing: 0.07em;
+    font-size: 11px;
   }
   .hero-actions {
     margin-top: 22px;
   }
   .button-quiet {
-    display: none;
+    display: inline-flex;
   }
   .interests {
     grid-template-columns: 1fr 1fr;
+    font-size: 13px;
   }
   .stack-row {
-    flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .stack-row > .mono-label {
-    font-size: 9px;
+    font-size: 11px;
   }
   .tech-stack li {
-    font-size: 11px;
     padding: 5px 8px;
+    font-size: 12px;
   }
   .section {
     margin-bottom: 36px;
   }
   .github-stats > div + div {
     padding-left: 20px;
-  }
-  .heatmap {
-    gap: 3px;
-  }
-  .heatmap-week {
-    gap: 3px;
-  }
-  .heatmap-day {
-    width: 8px;
-    height: 8px;
-  }
-  .contribution-chart {
-    min-height: 83px;
   }
 }
 @media (max-width: 480px) {
@@ -1168,10 +1313,12 @@ h3 {
     display: none;
   }
   .hero {
-    display: flex;
     position: relative;
     padding-top: 42px;
     padding-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
   .hero-copy {
     width: 100%;
@@ -1180,8 +1327,8 @@ h3 {
     font-size: clamp(44px, 13vw, 60px);
   }
   .eyebrow {
-    font-size: 8px;
     margin-bottom: 16px;
+    font-size: 11px;
   }
   .small-rule {
     width: 16px;
@@ -1191,34 +1338,29 @@ h3 {
     margin-top: 18px;
   }
   .hero-portrait {
-    position: absolute;
-    right: 0;
-    bottom: 38px;
+    position: static;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--space-4);
   }
   .portrait-frame img {
-    width: 64px;
-    height: 64px;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    transform: none;
   }
   .portrait-frame {
     transform: none;
     border-radius: 50%;
     padding: 4px;
   }
-  .portrait-frame img {
-    border-radius: 50%;
-    transform: none;
-  }
-  .portrait-corner,
-  .portrait-handle,
-  .hero-portrait .presence-label {
-    display: none;
-  }
+
   .hero-actions {
     margin-top: 24px;
   }
   .button-primary {
     padding: 10px 13px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .discord-banner {
     width: 76px;
@@ -1240,17 +1382,17 @@ h3 {
     height: 54px;
   }
   .discord-button {
-    font-size: 10px;
     padding: 9px 10px;
     gap: 6px;
+    font-size: 12px;
   }
   .discord-button svg {
     width: 15px;
     height: 15px;
   }
   .interests {
-    font-size: 12px;
     gap: 14px 12px;
+    font-size: 13px;
   }
   .interests li {
     gap: 7px;
@@ -1276,10 +1418,10 @@ h3 {
     padding: 16px;
   }
   .project-description {
-    font-size: 12px;
+    font-size: 14px;
   }
   .project-status {
-    font-size: 8px;
+    font-size: 10px;
   }
   .github-panel {
     padding: 16px;
@@ -1292,18 +1434,18 @@ h3 {
     font-size: 25px;
   }
   dt {
-    font-size: 10px;
+    font-size: 11px;
   }
   .github-stats > div + div {
     padding-left: 10px;
   }
   .activity-heading .mono-label {
-    font-size: 7px;
+    font-size: 10px;
   }
   .site-footer {
     gap: 12px;
     flex-wrap: wrap;
-    font-size: 10px;
+    font-size: 12px;
   }
   .footer-note {
     display: none;

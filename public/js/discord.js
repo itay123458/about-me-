@@ -15,10 +15,13 @@ const activityLabels = {
 
 function setStatus(status) {
   const value = Object.hasOwn(labels, status) ? status : "unknown";
-  for (const element of document.querySelectorAll(".status-dot"))
-    element.dataset.status = value;
-  for (const element of document.querySelectorAll(".presence-label"))
-    element.querySelector("span:last-child").textContent = labels[value];
+  for (const element of document.querySelectorAll(".status-dot")) {
+    if (element.dataset.status !== value) element.dataset.status = value;
+  }
+  for (const element of document.querySelectorAll(".presence-label")) {
+    const label = element.querySelector("span:last-child");
+    if (label.textContent !== labels[value]) label.textContent = labels[value];
+  }
 }
 
 function renderProfile(data) {
@@ -26,18 +29,20 @@ function renderProfile(data) {
   const connected = document.querySelector(".discord-connection");
   connected.dataset.connected = Boolean(data.available);
   document.querySelector("#discord-connection").textContent = data.available
-    ? "Live from Discord · updates every 30s"
+    ? "Live via Discord · refreshes every 30s"
     : "Discord presence unavailable";
   if (data.user) {
     document.querySelector("#discord-title").textContent =
       data.user.displayName;
     document.querySelector("#discord-username").textContent =
       `@${data.user.username}`;
+    document.querySelector(".portrait-handle").textContent =
+      `@${data.user.username}`;
     const avatar = data.user.avatarUrl;
     if (avatar && /^https:\/\/cdn\.discordapp\.com\//.test(avatar)) {
       for (const id of ["#discord-avatar", "#hero-avatar"]) {
         const image = document.querySelector(id);
-        image.src = avatar;
+        if (image.src !== avatar) image.src = avatar;
         image.alt = `${data.user.displayName}'s Discord avatar`;
       }
     }

@@ -34,6 +34,7 @@
           <a href="#activity">Activity</a>
           <a
             class="header-github"
+            aria-label="Itay on GitHub"
             href="https://github.com/itay123458"
             target="_blank"
             rel="noopener noreferrer"
@@ -78,21 +79,23 @@
                 id="hero-avatar"
                 src="./assets/avatar.png"
                 alt="Itay's GitHub avatar"
-                width="176"
-                height="176"
+                width="192"
+                height="192"
               /><span class="portrait-corner" aria-hidden="true"
                 >&lt;/&gt;</span
               >
             </div>
-            <span class="portrait-handle">@itay100k</span>
-            <span class="presence-label" id="hero-presence"
-              ><span
-                class="status-dot"
-                data-status="unknown"
-                aria-hidden="true"
-              ></span
-              ><span>Status unavailable</span></span
-            >
+            <div class="portrait-meta">
+              <span class="portrait-handle">@itay100k</span>
+              <span class="presence-label" id="hero-presence"
+                ><span
+                  class="status-dot"
+                  data-status="unknown"
+                  aria-hidden="true"
+                ></span
+                ><span>Status unavailable</span></span
+              >
+            </div>
           </div>
         </section>
 
@@ -137,14 +140,29 @@
                     >JavaScript
                   </li>
                   <li>
+                    <span class="tech-mark node-mark" aria-hidden="true">N</span
+                    >Node.js
+                  </li>
+                  <li>
                     <span class="tech-mark html-mark" aria-hidden="true"
                       >&lt;/&gt;</span
                     >HTML
                   </li>
                   <li>
+                    <span class="tech-mark css-mark" aria-hidden="true">#</span
+                    >CSS
+                  </li>
+                  <li>
                     <span class="tech-mark discord-mark" aria-hidden="true"
                       >d.js</span
                     >Discord.js
+                  </li>
+                  <li>
+                    <span class="tech-mark git-mark" aria-hidden="true">±</span
+                    >Git
+                  </li>
+                  <li>
+                    <span data-icon="github" aria-hidden="true"></span>GitHub
                   </li>
                 </ul>
               </div>
@@ -191,7 +209,7 @@
                   ><span data-icon="arrow-up-right"></span
                 ></a>
               </div>
-              <div class="github-panel">
+              <div class="github-panel" aria-busy="true">
                 <dl class="github-stats">
                   <div>
                     <dt>Public repos</dt>
@@ -202,7 +220,7 @@
                     <dd id="stat-stars">—</dd>
                   </div>
                   <div>
-                <dt>Contributions / year</dt>
+                    <dt>Contributions / year</dt>
                     <dd id="stat-contributions">—</dd>
                   </div>
                 </dl>
@@ -273,7 +291,12 @@
                 </div>
                 <h2 id="discord-title">Itay100k</h2>
                 <p class="discord-username" id="discord-username">@itay100k</p>
-                <p class="presence-label" id="discord-presence">
+                <p
+                  class="presence-label"
+                  id="discord-presence"
+                  role="status"
+                  aria-live="polite"
+                >
                   <span
                     class="status-dot"
                     data-status="unknown"
