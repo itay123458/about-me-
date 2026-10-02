@@ -3,7 +3,7 @@
 A personal developer profile with a static frontend and an official Discord bot presence service. Plain HTML, CSS, and JavaScript; Node.js 24 LTS; Discord.js v14. No framework, database, commands, self-bot, or third-party profile widget.
 
 - **Website:** https://itay123458.github.io/about-me-/
-- **Pi profile/API:** https://ik.tailce7102.ts.net/about-me/
+- **Pi profile API:** https://ik.tailce7102.ts.net/about-me/api/discord
 - **GitHub:** https://github.com/itay123458
 
 ## How it works
@@ -72,7 +72,7 @@ docker compose logs -f profile
 
 The ARM64-compatible image runs as a non-root user with a read-only filesystem. Docker binds the service to **127.0.0.1:3010** on the Pi. Publish it through an HTTPS reverse proxy, not a bare public HTTP port. Configure the public endpoint in `public/config.js` and set `ALLOWED_ORIGIN` to the website's origin (without a path).
 
-This deployment uses the Pi's existing Tailscale Funnel with an additional `/about-me` route to `http://127.0.0.1:3010`. The existing root route stays in place. The service accepts both root and `/about-me/` paths, and `/api/health` reports HTTP service health independently of Discord availability.
+The website is hosted on GitHub Pages. This deployment uses the Pi's existing Tailscale Funnel with an additional **API-only** `/about-me/api` route to `http://127.0.0.1:3010/api`. The existing root route stays in place. `/api/health` reports HTTP service health independently of Discord availability.
 
 After changing `.env`, run `docker compose up -d` to recreate the container. Keep `.env` mode `600` on Linux. Do not run an additional copy of the presence service unnecessarily.
 
